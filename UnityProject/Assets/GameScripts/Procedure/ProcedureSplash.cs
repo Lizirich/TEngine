@@ -14,7 +14,7 @@ namespace Procedure
         {
             base.OnUpdate(procedureOwner, elapseSeconds, realElapseSeconds);
             // 播放 Splash 动画
-            //Splash.Active(splashTime:3f);
+            // Splash.Active(splashTime:3f);
             //初始化资源包
             ChangeState<ProcedureInitPackage>(procedureOwner);
         }
