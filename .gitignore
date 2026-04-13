@@ -23,3 +23,14 @@ Tools/GameEventSourceGenerator/SourceGenerator/obj
 
 #openspec
 openspec/
+UnityProject/Assets/AssetRaw/Configs
+UnityProject/Assets/GameScripts/HotFix/GameProto/GameConfig
+UnityProject/Assets/GameScripts/HotFix/GameProto/NetworkProtocol
+UnityProject/Assets/GameScripts/HotFix/GameProto/ConfigSystem.cs
+UnityProject/Assets/GameScripts/HotFix/GameProto/ConfigSystem.cs.meta
+UnityProject/Assets/GameScripts/HotFix/GameProto/ExternalTypeUtil.cs
+UnityProject/Assets/GameScripts/HotFix/GameProto/NetworkProtocol.meta
+UnityProject/Assets/GameScripts/HotFix/GameProto/GameConfig.meta
+UnityProject/Assets/GameScripts/HotFix/GameProto/ConfigSystem.cs.meta
+UnityProject/Assets/GameScripts/HotFix/GameProto/ConfigSystem.cs.meta
+UnityProject/Assets/GameScripts/HotFix/GameProto/NetworkProtocol.meta
