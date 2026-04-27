@@ -17,7 +17,7 @@ TEngine 基于 HybridCLR + YooAsset + UniTask + Luban 构建。
 
 | 等级 | 判断标准 | 知识查询策略 |
 |------|---------|-------------|
-| **L1 简单** | typo 修正、注释修改、日志输出、单行变量改名 | ❌ 跳过查询，直接编码 |
+| **L1 简单** | typo 修正、注释修改、日志输出、单行变量改名（**前提：不涉及框架 API 名称、UI 节点前缀、事件定义或资源路径**） | ❌ 跳过查询，直接编码 |
 | **L2 调用** | 调用已知 API、单一模块的局部修改 | ✅ 触发 `tengine-dev` skill（只查该主题） |
 | **L3 功能** | 新功能开发、跨文件修改、新增 UI/资源/事件逻辑 | ✅ 触发 `tengine-dev` skill（全量相关主题） |
 | **L4 架构** | 模块设计、系统重构、多模块协作、架构决策 | ✅ 触发 `tengine-dev` skill（并行多主题） |
@@ -64,8 +64,9 @@ TEngine 基于 HybridCLR + YooAsset + UniTask + Luban 构建。
 基于 tengine-dev skill 返回的规范编写实现。
 
 **当 references 规范与代码实际 API 冲突时**：
-1. 优先信任代码中的实际实现
-2. 在输出中标注冲突点
+1. 使用 Grep 搜索实际方法签名验证（例：`Grep "ForceUnloadUnusedAssets"` 确认参数名）
+2. 优先信任代码中的实际实现
+3. 在输出中标注冲突点，并记录到 `.claude/memory/` 供后续修正
 
 ---
 
@@ -94,14 +95,10 @@ TEngine 基于 HybridCLR + YooAsset + UniTask + Luban 构建。
 | luban-config.md | 配置表 | 核心 |
 | naming-rules.md | 代码规范/命名约定/节点前缀 | 核心 |
 | ui-patterns.md | UI 进阶（Widget 模板/节点绑定）| 进阶 |
-| event-antipatterns.md | 事件避坑 | 进阶 |
-| resource-patterns.md | 资源管理模式/生命周期 | 进阶 |
-| mcp-index.md | MCP 工具索引/batch_execute | MCP |
-| mcp-ui-build.md | 拼 UI Prefab | MCP |
-| mcp-scene.md | 场景/GameObject 操作 | MCP |
-| mcp-asset.md | 脚本创建/资源管理 | MCP |
-| mcp-visual.md | 材质/Shader/VFX/动画 | MCP |
-| mcp-editor.md | Editor 自动化/测试/日志 | MCP |
+| event-antipatterns.md | 事件避坑（内存泄漏/接口无响应/风暴）| 进阶 |
+| resource-patterns.md | 资源管理模式/生命周期/泄漏根因 | 进阶 |
+| mcp-tools.md | MCP 场景/GameObject/UI Prefab/脚本/Editor/测试 | MCP |
+| mcp-visual.md | MCP 材质/Shader/VFX/动画 | MCP |
 | troubleshooting.md | 问题排查 | 排障 |
 
 ---
@@ -109,6 +106,16 @@ TEngine 基于 HybridCLR + YooAsset + UniTask + Luban 构建。
 ## 🔧 自我优化机制
 
 ### 问题记录
-发现问题时记录到 `.claude/memory/`：
-- 文件名：`problem_YYYY-MM-DD.md`
-- 内容：问题现象、原因分析、解决方案
+
+**触发条件**（满足任一即记录）：
+1. 发现 references 文档描述与实际代码 API 不符（通过 Grep/Read 验证）
+2. AI 生成的代码在编译/运行时报错，根因是知识库描述有误
+3. 用户明确指出某文档描述有误
+
+**记录规范**：
+- 文件名：`problem_YYYY-MM-DD.md`（如 `problem_2026-04-21.md`）
+- 必填字段：
+  - **问题现象**：错误表现或报错信息
+  - **文档位置**：哪篇 reference 文档哪一节
+  - **正确 API**：经代码验证后的正确用法
+  - **建议修正**：文档应改成什么表述

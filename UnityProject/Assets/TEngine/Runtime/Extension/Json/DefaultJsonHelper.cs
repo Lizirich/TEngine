@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using UnityEngine;
 
 namespace TEngine
@@ -12,8 +12,9 @@ namespace TEngine
         /// 将对象序列化为 JSON 字符串。
         /// </summary>
         /// <param name="obj">要序列化的对象。</param>
+        /// <param name="settings">序列化设置。</param>
         /// <returns>序列化后的 JSON 字符串。</returns>
-        public string ToJson(object obj)
+        public string ToJson(object obj, object settings = null)
         {
             return JsonUtility.ToJson(obj);
         }
@@ -23,8 +24,9 @@ namespace TEngine
         /// </summary>
         /// <typeparam name="T">对象类型。</typeparam>
         /// <param name="json">要反序列化的 JSON 字符串。</param>
+        /// <param name="settings">序列化设置。</param>
         /// <returns>反序列化后的对象。</returns>
-        public T ToObject<T>(string json)
+        public T ToObject<T>(string json, object settings = null)
         {
             return JsonUtility.FromJson<T>(json);
         }
@@ -34,8 +36,9 @@ namespace TEngine
         /// </summary>
         /// <param name="objectType">对象类型。</param>
         /// <param name="json">要反序列化的 JSON 字符串。</param>
+        /// <param name="settings">序列化设置。</param>
         /// <returns>反序列化后的对象。</returns>
-        public object ToObject(Type objectType, string json)
+        public object ToObject(Type objectType, string json, object settings = null)
         {
             return JsonUtility.FromJson(json, objectType);
         }

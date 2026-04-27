@@ -86,6 +86,10 @@ namespace TEngine
 
         private void OnDestroy()
         {
+            if (_originalRefs.TryGetValue(gameObject, out var reference) && reference == this)
+            {
+                _originalRefs.Remove(gameObject);
+            }
             CheckInit();
             if (sourceGameObject != null)
             {
@@ -123,10 +127,7 @@ namespace TEngine
             _resourceModule = resourceModule;
             sourceGameObject = source;
 
-            if (!_originalRefs.ContainsKey(gameObject))
-            {
-                _originalRefs.Add(gameObject, this);
-            }
+            _originalRefs[gameObject] = this;
 
             return this;
         }

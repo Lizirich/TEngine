@@ -857,6 +857,7 @@ namespace TEngine
             if (cancelOrFailed)
             {
                 _assetLoadingList.Remove(assetObjectKey);
+                handle.Dispose();
                 return null;
             }
 
@@ -901,6 +902,7 @@ namespace TEngine
             if (cancelOrFailed)
             {
                 _assetLoadingList.Remove(assetObjectKey);
+                handle.Dispose();
                 return null;
             }
 

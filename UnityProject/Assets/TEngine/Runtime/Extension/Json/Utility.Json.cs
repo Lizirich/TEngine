@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 
 namespace TEngine
 {
@@ -24,8 +24,9 @@ namespace TEngine
             /// 将对象序列化为 JSON 字符串。
             /// </summary>
             /// <param name="obj">要序列化的对象。</param>
+            /// <param name="settings">序列化设置。</param>
             /// <returns>序列化后的 JSON 字符串。</returns>
-            public static string ToJson(object obj)
+            public static string ToJson(object obj, object settings = null)
             {
                 if (_jsonHelper == null)
                 {
@@ -34,7 +35,7 @@ namespace TEngine
 
                 try
                 {
-                    return _jsonHelper.ToJson(obj);
+                    return _jsonHelper.ToJson(obj, settings);
                 }
                 catch (Exception exception)
                 {
@@ -52,8 +53,9 @@ namespace TEngine
             /// </summary>
             /// <typeparam name="T">对象类型。</typeparam>
             /// <param name="json">要反序列化的 JSON 字符串。</param>
+            /// <param name="settings">序列化设置。</param>
             /// <returns>反序列化后的对象。</returns>
-            public static T ToObject<T>(string json)
+            public static T ToObject<T>(string json, object settings = null)
             {
                 if (_jsonHelper == null)
                 {
@@ -62,7 +64,7 @@ namespace TEngine
 
                 try
                 {
-                    return _jsonHelper.ToObject<T>(json);
+                    return _jsonHelper.ToObject<T>(json, settings);
                 }
                 catch (Exception exception)
                 {
@@ -80,8 +82,9 @@ namespace TEngine
             /// </summary>
             /// <param name="objectType">对象类型。</param>
             /// <param name="json">要反序列化的 JSON 字符串。</param>
+            /// <param name="settings">序列化设置。</param>
             /// <returns>反序列化后的对象。</returns>
-            public static object ToObject(Type objectType, string json)
+            public static object ToObject(Type objectType, string json, object settings = null)
             {
                 if (_jsonHelper == null)
                 {
@@ -95,7 +98,7 @@ namespace TEngine
 
                 try
                 {
-                    return _jsonHelper.ToObject(objectType, json);
+                    return _jsonHelper.ToObject(objectType, json, settings);
                 }
                 catch (Exception exception)
                 {
